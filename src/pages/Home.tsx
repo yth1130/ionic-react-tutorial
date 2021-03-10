@@ -1,12 +1,24 @@
-import { IonCheckbox, IonFab, IonItem, IonLabel, IonNote, IonBadge, IonFabButton, IonIcon } from '@ionic/react';
+import { IonCheckbox, IonFab, IonItem, IonLabel, IonNote, IonBadge, IonFabButton, IonIcon, IonButton } from '@ionic/react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import React from 'react';
+import React, { useState } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 import { add } from 'ionicons/icons';
 import { RouteComponentProps } from 'react-router';
+import { CameraResultType, Plugins } from '@capacitor/core';
 
 const Home: React.FC<RouteComponentProps> = (props) => {
+  const { Camera } = Plugins;
+  const [photo, setPhoto] = useState('');
+  const takePhoto = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    setPhoto(image.webPath as string);
+  };
+  
   return (
     <IonPage>
       <IonHeader>
@@ -40,6 +52,10 @@ const Home: React.FC<RouteComponentProps> = (props) => {
         </IonFab>
 
         <ExploreContainer />
+
+        <img src={photo} />
+        <IonButton onClick={takePhoto}>Take Photo!!</IonButton>
+        
       </IonContent>
     </IonPage>
   );

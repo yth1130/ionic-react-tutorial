@@ -1,3 +1,21 @@
 https://ionicframework.com/docs/react/quickstart
 
 네이티브 앱 빌드 : https://ionicframework.com/docs/react/quickstart#build-a-native-app
+
+$ firefox -P app --new-instance
+
+ionic build
+ionic cap add ios
+ionic cap add android
+ionic cap open android -> IDE 열림.
+ionic cap copy
+
+IDE 없이 Android 빌드하기
+https://forum.ionicframework.com/t/how-to-build-an-android-apk-file-without-using-android-studio-in-a-capacitor-project/177814/9
+빌드 : cd android && ./gradlew assembleDebug && cd ..
+빌드&실행 : cd android && ./gradlew assembleDebug && ./gradlew installDebug && cd ..
+명령 목록 : cd android && ./gradlew app:tasks --all && cd ..
+앱 번들 : ./gradlew bundleRelease
+
+라이브 리로드
+ionic cap run android -l --external
